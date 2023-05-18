@@ -10,15 +10,15 @@ namespace ExperimentTask.Controllers
     public class ExperimentController : ControllerBase
     {
         private readonly ExperimentContext _context;
-        private readonly IExperementService _experimentService;
+        private readonly IExperimentService _experimentService;
         private readonly IDeviceService _deviceService;
 
-        public ExperimentController(ExperimentContext context, IDeviceService deviceService,IExperementService experimentService) 
+        public ExperimentController(ExperimentContext context,IDeviceService deviceService,IExperimentService experimentService)
         {
             _context = context;
             _deviceService = deviceService;
             _experimentService = experimentService;
-        } 
+        }
 
 
         [HttpGet("button-color")]
@@ -29,30 +29,30 @@ namespace ExperimentTask.Controllers
                 return BadRequest("Device token is required.");
             }
 
-             var existingDevice = await _deviceService.GetDevice(deviceToken);
+            var existingDevice = await _deviceService.GetDevice(deviceToken);
 
-            
-           
+
+
 
             var experiment = await _experimentService.GetButtonColorExperiment("button-color");
-                   
-               
-                if(existingDevice == null)
-                {
-                    var newDevice = new Device { Id = Guid.NewGuid().ToString(),DeviceToken = deviceToken,Experiment = experiment };
-                    _context.Devices.Add(newDevice);
-                }
-            
-                await _context.SaveChangesAsync();
 
-                return Ok(new ExperimentColorResponse { Key = experiment.Key,Options = experiment.Options });
+
+            if (existingDevice == null)
+            {
+                var newDevice = new Device { Id = Guid.NewGuid().ToString(),DeviceToken = deviceToken,Experiment = experiment };
+                _context.Devices.Add(newDevice);
             }
-            
-           
-                    
-                
-            
-        
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new ExperimentColorResponse { Key = experiment.Key,Options = experiment.Options });
+        }
+
+
+
+
+
+
 
         [HttpGet("price")]
         public async Task<IActionResult> GetPriceExperiment(string deviceToken)
@@ -64,8 +64,8 @@ namespace ExperimentTask.Controllers
 
             var existingDevice = await _deviceService.GetDevice(deviceToken);
 
-           
-            
+
+
             var experiment = await _experimentService.GetPriceExperiment("price");
 
             if (existingDevice == null)
@@ -75,7 +75,7 @@ namespace ExperimentTask.Controllers
             }
             await _context.SaveChangesAsync();
 
-            return Ok(new ExperimentPriceResponse { Key = experiment.Key, Options= experiment.Options,Count= experiment.Count});
+            return Ok(new ExperimentPriceResponse { Key = experiment.Key,Options = experiment.Options,Count = experiment.Count });
         }
 
 

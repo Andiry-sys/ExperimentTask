@@ -12,7 +12,7 @@ builder.Services.AddControllers().AddJsonOptions(options=>options.JsonSerializer
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IExperementService, ExperementService>();
+builder.Services.AddScoped<IExperimentService, ExperimentService>();
 builder.Services.AddScoped<IDeviceService, DeviceService>();
 builder.Services.AddDbContext<ExperimentContext>(s => s.UseSqlServer(builder.Configuration["ConnectionStrings:Connection"]));
 

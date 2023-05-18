@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ExperimentTask.Service.Implements
 {
-    public class ExperementService : IExperementService
+    public class ExperimentService : IExperimentService
     {
         private readonly ExperimentContext _context;
 
-        public ExperementService(ExperimentContext context) => _context = context;
+        public ExperimentService(ExperimentContext context) => _context = context;
 
 
 

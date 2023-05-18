@@ -12,7 +12,7 @@ namespace ExperimentTaskUnitTest
                 .Options;
 
             using var dbContext = new ExperimentContext(dbContextOptions);
-            var service = new ExperementService(dbContext);
+            var service = new ExperimentService(dbContext);
 
             // Act
             var experiment = await service.GetButtonColorExperiment("button_color");
@@ -28,11 +28,11 @@ namespace ExperimentTaskUnitTest
         {
             // Arrange
             var dbContextOptions = new DbContextOptionsBuilder<ExperimentContext>()
-                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .UseInMemoryDatabase(databaseName: "TestDb")
                 .Options;
 
             using var dbContext = new ExperimentContext(dbContextOptions);
-            var service = new ExperementService(dbContext);
+            var service = new ExperimentService(dbContext);
 
             // Act
             var experiment = await service.GetPriceExperiment("price");
